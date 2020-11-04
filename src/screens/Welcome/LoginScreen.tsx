@@ -1,9 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Button from '../../common/Button';
 import DumbTextInput from '../../common/TextInput';
 
-const LoginScreen = () => {
+interface IProps {
+  navigation: any;
+}
+
+const LoginScreen = (props: IProps) => {
   return (
     <View style={{ justifyContent: 'space-between', height: '100%', backgroundColor: 'white' }}>
       <View style={{ padding: 20 }}>
@@ -39,7 +43,9 @@ const LoginScreen = () => {
           justifyContent: 'center',
         }}>
         <Text>Don't have an account?</Text>
-        <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Register here</Text>
+        <Pressable onPress={() => props.navigation.navigate('Register')}>
+          <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Register here</Text>
+        </Pressable>
       </View>
     </View>
   );

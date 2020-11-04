@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LoginScreen from './screens/Welcome/LoginScreen';
 import RegisterScreen from './screens/Welcome/RegisterScreen';
@@ -9,11 +9,11 @@ import WelcomeScreen from './screens/Welcome/WelcomeScreen';
 const Stack = createStackNavigator();
 
 const Navigations = () => {
-  // const backToIcon = (
-  //   <View style={{ paddingLeft: 10 }}>
-  //     <Icon color="black" name="arrow-left" />
-  //   </View>
-  // );
+  const backToIcon = (navigation: any) => (
+    <Pressable style={{ paddingLeft: 20 }} onPress={() => navigation.goBack()}>
+      <Icon color="black" name="arrow-left" style={{ fontSize: 30 }} />
+    </Pressable>
+  );
 
   return (
     <Stack.Navigator initialRouteName="Welcome">
@@ -22,24 +22,33 @@ const Navigations = () => {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{
+        options={({ navigation }) => ({
           headerLeft: () => null,
           headerStyle: {
-            backgroundColor: 'white',
-            shadowColor: 'white',
             shadowRadius: 0,
             elevation: 0,
           },
           headerTitle: '',
           headerRight: () => (
-            <View style={{ paddingRight: 20 }}>
+            <Pressable style={{ paddingRight: 20 }} onPress={() => navigation.goBack()}>
               <Icon color="black" name="close" style={{ fontSize: 30 }} />
-            </View>
+            </Pressable>
           ),
-        }}
+        })}
       />
 
-      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          headerStyle: {
+            shadowRadius: 0,
+            elevation: 0,
+          },
+          headerTitle: '',
+          headerLeft: () => backToIcon(navigation),
+        })}
+      />
     </Stack.Navigator>
   );
 };

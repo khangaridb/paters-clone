@@ -59,7 +59,13 @@ const WelcomeScreen = (props: IProps) => {
           <Text style={[styles.textStyle, { fontSize: 14 }]}>Lorem Ipsum is simply dummy text of the printing</Text>
         </View>
 
-        <Button text="Register" fullWidth rounded style={styles.buttonStyle} />
+        <Button
+          text="Register"
+          fullWidth
+          rounded
+          style={styles.buttonStyle}
+          onPress={() => props.navigation.navigate('Register')}
+        />
         <View>
           <Text style={[styles.textStyle]}>Lorem Ipsum is simply dummy text</Text>
         </View>

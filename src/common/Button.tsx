@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   disabled: {
-    backgroundColor: '#efefef',
+    backgroundColor: '#eaeaea',
     color: 'white',
     fontWeight: 'bold',
   },
