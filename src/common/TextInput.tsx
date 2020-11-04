@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleProp, StyleSheet, TextInput, TextStyle, View, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface IProps {
@@ -7,8 +7,8 @@ interface IProps {
   fullWidth?: boolean;
   placeholder?: string;
   icon?: string;
-  style?: any;
-  containerStyle?: any;
+  style?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   underlined?: boolean;
 }
 

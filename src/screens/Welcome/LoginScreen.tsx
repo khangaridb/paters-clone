@@ -28,7 +28,9 @@ const LoginScreen = (props: IProps) => {
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', marginTop: 15 }}>
             <Text>Forgot password?</Text>
-            <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Click here</Text>
+            <Pressable onPress={() => props.navigation.navigate('ForgotPassword')}>
+              <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Click here</Text>
+            </Pressable>
           </View>
         </View>
       </View>

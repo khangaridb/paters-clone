@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,9 +12,9 @@ interface IProps {
   items: IItem[];
   icon?: string;
   placeholder?: string;
-  containerStyle?: any;
+  containerStyle?: StyleProp<ViewStyle>;
   onChange?: (item: IItem) => void;
-  textStyle: any;
+  textStyle: StyleProp<TextStyle>;
 }
 
 const SelectInput = (props: IProps) => {
