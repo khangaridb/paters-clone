@@ -1,10 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from '../../common/Button';
-import SelectInput from '../../common/SelectInput';
-import DumbTextInput from '../../common/TextInput';
+import RegisterStep1 from './registerSteps/RegisterStep1';
+import RegisterStep2 from './registerSteps/RegisterStep2';
+import RegisterStep3 from './registerSteps/RegisterStep3';
+import RegisterStep4 from './registerSteps/RegisterStep4';
+
 const labels = ['Birth info', 'Profile info', 'Password', 'SMS'];
 
 const customStyles = {
@@ -39,127 +42,37 @@ interface IProps {
 const RegisterScreen = (props: IProps) => {
   const [currentStep, setCurrentStep] = React.useState<number>(0);
 
-  const renderContent = () => {
-    if (currentStep === 0) {
+  const nextButton = () => {
+    if (currentStep === labels.length) {
       return (
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Birthday</Text>
-          <View style={{ flexDirection: 'row', width: '100%', marginTop: 10 }}>
-            <View style={{ flexDirection: 'row', width: '30%' }}>
-              <DumbTextInput
-                icon="birthday-cake"
-                underlined
-                containerStyle={{ width: '100%' }}
-                style={{ width: '100%' }}
-                placeholder="1980"
-              />
-              <Text style={{ fontSize: 30, color: '#c2c2c2', paddingLeft: 10 }}>/</Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', width: '30%', marginLeft: 10 }}>
-              <DumbTextInput
-                underlined
-                containerStyle={{ width: '100%', marginLeft: 10 }}
-                style={{ width: '100%' }}
-                placeholder="01"
-              />
-              <Text
-                style={{
-                  fontSize: 30,
-                  color: '#c2c2c2',
-                  paddingLeft: 10,
-                }}>
-                /
-              </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', width: '30%', marginLeft: 10 }}>
-              <DumbTextInput
-                underlined
-                containerStyle={{ width: '100%', marginLeft: 10 }}
-                style={{ width: '100%' }}
-                placeholder="01"
-              />
-            </View>
-          </View>
-
-          <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 16 }}>Gender</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 20,
-              alignContent: 'stretch',
-              width: '100%',
-              justifyContent: 'space-around',
-            }}>
-            <Button text="MALE" rounded style={{ width: '40%' }} />
-            <Button text="FEMALE" rounded disabled style={{ width: '40%' }} />
-          </View>
-
-          <Button fullWidth text="NEXT" style={{ marginTop: 60 }} onPress={() => setCurrentStep(currentStep + 1)} />
-        </View>
+        <Button fullWidth text="Finish" style={{ marginTop: 60 }} onPress={() => props.navigation.navigate('Login')} />
       );
     }
 
+    return <Button fullWidth text="NEXT" style={styles.nextButton} onPress={() => setCurrentStep(currentStep + 1)} />;
+  };
+
+  const renderContent = () => {
+    let stepComponent = <RegisterStep1 />;
+
     if (currentStep === 1) {
-      return (
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Username</Text>
-          <DumbTextInput icon="user" underlined fullWidth placeholder="Username" style={{ textAlign: 'left' }} />
-          <Text style={{ marginTop: 10, marginLeft: 30 }}>Lorem ipsum dollar sign</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20 }}>Location</Text>
-
-          <SelectInput
-            icon="map-pin"
-            items={[
-              { label: 'Location 1', value: '1' },
-              { label: 'Location 2', value: '2' },
-              { label: 'Location 3', value: '3' },
-              { label: 'Location 4', value: '4' },
-            ]}
-            containerStyle={{ marginTop: 10 }}
-            textStyle={{ width: '40%' }}
-            placeholder="Select location"
-          />
-
-          <Button fullWidth text="NEXT" style={{ marginTop: 60 }} onPress={() => setCurrentStep(currentStep + 1)} />
-        </View>
-      );
+      stepComponent = <RegisterStep2 />;
     }
 
     if (currentStep === 2) {
-      return (
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Phone</Text>
-          <DumbTextInput icon="phone" underlined fullWidth placeholder="Phone number" style={{ textAlign: 'left' }} />
-          <Text style={{ marginTop: 10, marginLeft: 30 }}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text
-          </Text>
-
-          <Text style={{ fontWeight: 'bold', fontSize: 16, marginTop: 20 }}>Password</Text>
-          <DumbTextInput icon="key" underlined fullWidth placeholder="Type password" style={{ textAlign: 'left' }} />
-
-          <Button fullWidth text="NEXT" style={{ marginTop: 60 }} onPress={() => setCurrentStep(currentStep + 1)} />
-        </View>
-      );
+      stepComponent = <RegisterStep3 />;
     }
 
     if (currentStep === 3) {
-      return (
-        <View style={{ marginTop: 20 }}>
-          <DumbTextInput icon="envelope" underlined fullWidth placeholder="******" style={{ textAlign: 'left' }} />
-          <Text style={{ marginTop: 10, marginLeft: 30 }}>Enter sms text you have received on your phone</Text>
-
-          <Button
-            fullWidth
-            text="Finish"
-            style={{ marginTop: 60 }}
-            onPress={() => props.navigation.navigate('Login')}
-          />
-        </View>
-      );
+      stepComponent = <RegisterStep4 />;
     }
+
+    return (
+      <View style={styles.stepContainer}>
+        {stepComponent}
+        {nextButton()}
+      </View>
+    );
   };
 
   const getStepIndicatorIconConfig = ({ position }: { position: number; stepStatus: string }) => {
@@ -209,5 +122,12 @@ const RegisterScreen = (props: IProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  stepContainer: {
+    marginTop: 20,
+  },
+  nextButton: { marginTop: 60 },
+});
 
 export default RegisterScreen;

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../common/Button';
 import DumbTextInput from '../../common/TextInput';
 
 const ForgotPasswordScreen = () => {
   return (
-    <View style={{ height: '100%', backgroundColor: 'white', padding: 10 }}>
-      <Text style={{ width: '40%', fontWeight: 'bold', fontSize: 20 }}>Lorem Ipsum is simply dummy </Text>
+    <View style={styles.container}>
+      <Text style={styles.headerTxt}>Lorem Ipsum is simply dummy </Text>
 
       <Text style={{ marginTop: 20 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
 
@@ -16,5 +16,18 @@ const ForgotPasswordScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  headerTxt: {
+    width: '40%',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+});
 
 export default ForgotPasswordScreen;

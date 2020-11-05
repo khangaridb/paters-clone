@@ -20,7 +20,7 @@ const DumbTextInput = (props: IProps) => {
   };
 
   return (
-    <View style={[{ flexDirection: 'row', alignItems: 'flex-end' }, props.containerStyle && props.containerStyle]}>
+    <View style={[styles.container, props.containerStyle && props.containerStyle]}>
       {props.icon && <Icon name={props.icon} style={styles.icon} />}
       <TextInput
         placeholder={props.placeholder || ''}
@@ -37,6 +37,10 @@ const DumbTextInput = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
   default: {
     height: 40,
     borderColor: '#cecece',

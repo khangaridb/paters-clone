@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import commonStyles from '../common/styles';
 
 interface IProps {
   fullWidth?: boolean;
@@ -32,30 +33,30 @@ const Button = (props: IProps) => {
 const styles = StyleSheet.create({
   default: {
     padding: 10,
-    backgroundColor: '#57c896',
+    backgroundColor: commonStyles.colors.primaryGreen,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     fontWeight: 'bold',
-    color: 'white',
+    color: commonStyles.colors.white,
     fontSize: 18,
   },
   fullWidth: {
     width: '100%',
   },
   transparent: {
-    borderColor: 'white',
+    borderColor: commonStyles.colors.white,
     borderWidth: 2,
     backgroundColor: 'transparent',
-    color: 'white',
+    color: commonStyles.colors.white,
   },
   rounded: {
     borderRadius: 20,
   },
   disabled: {
-    backgroundColor: '#eaeaea',
-    color: 'white',
+    backgroundColor: commonStyles.colors.primaryGrey,
+    color: commonStyles.colors.white,
     fontWeight: 'bold',
   },
 });

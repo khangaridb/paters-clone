@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from '../../common/Button';
+import commonStyles from '../../common/styles';
 import DumbTextInput from '../../common/TextInput';
 
 interface IProps {
@@ -21,7 +22,7 @@ const LoginScreen = (props: IProps) => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: 'white', height: '100%' }}>
+    <SafeAreaView style={commonStyles.styles.fullHeightContainer}>
       <ScrollView>
         <View style={{ padding: 20, flex: 1 }}>
           <View>
@@ -45,26 +46,17 @@ const LoginScreen = (props: IProps) => {
             <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', marginTop: 15 }}>
               <Text>Forgot password?</Text>
               <Pressable onPress={() => props.navigation.navigate('ForgotPassword')}>
-                <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Click here</Text>
+                <Text style={commonStyles.styles.underLineText}> Click here</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </ScrollView>
 
-      <View
-        style={{
-          borderColor: '#efefef',
-          height: 40,
-          padding: 10,
-          borderTopWidth: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          width: '100%',
-        }}>
+      <View style={styles.footer}>
         <Text>Don't have an account?</Text>
         <Pressable onPress={() => props.navigation.navigate('Register')}>
-          <Text style={{ color: 'green', textDecorationLine: 'underline' }}> Register here</Text>
+          <Text style={commonStyles.styles.underLineText}> Register here</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -75,6 +67,15 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  footer: {
+    borderColor: '#efefef',
+    height: 40,
+    padding: 10,
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
   },
 });
 

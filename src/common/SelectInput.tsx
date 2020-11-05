@@ -60,33 +60,14 @@ const SelectInput = (props: IProps) => {
         style={{ justifyContent: 'flex-end', margin: 0 }}
         onBackdropPress={() => setVisible(!visible)}>
         <View style={{ backgroundColor: 'white' }}>
-          <Pressable
-            onPress={() => setVisible(!visible)}
-            style={{
-              justifyContent: 'center',
-              height: 40,
-              borderBottomColor: '#c2c2c2',
-              borderBottomWidth: 1,
-              alignItems: 'flex-end',
-            }}>
+          <Pressable onPress={() => setVisible(!visible)} style={styles.cancelButton}>
             <Text style={{ paddingRight: 10, color: '#c2c2c2' }}>close</Text>
           </Pressable>
 
           <View>
             {props.items.map((item, index) => {
               return (
-                <Pressable
-                  key={index}
-                  onPress={() => onChange(item)}
-                  style={{
-                    height: 40,
-                    borderBottomColor: '#c2c2c2',
-                    borderBottomWidth: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignContent: 'center',
-                    padding: 10,
-                  }}>
+                <Pressable key={index} onPress={() => onChange(item)} style={styles.item}>
                   <Text style={{ fontSize: 16 }}>{item.label}</Text>
 
                   {selectedItem && selectedItem.value === item.value ? (
@@ -125,6 +106,22 @@ const styles = StyleSheet.create({
     color: '#c2c2c2',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  item: {
+    height: 40,
+    borderBottomColor: '#c2c2c2',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    padding: 10,
+  },
+  cancelButton: {
+    justifyContent: 'center',
+    height: 40,
+    borderBottomColor: '#c2c2c2',
+    borderBottomWidth: 1,
+    alignItems: 'flex-end',
   },
 });
 
