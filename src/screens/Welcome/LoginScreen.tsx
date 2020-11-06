@@ -18,7 +18,7 @@ const LoginScreen = (props: IProps) => {
   }, [register]);
 
   const onSubmit = () => {
-    console.log('submitted');
+    props.navigation.navigate('Home');
   };
 
   return (
