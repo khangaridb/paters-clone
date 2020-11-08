@@ -77,6 +77,7 @@ const Navigations = () => {
           headerStyle: {
             shadowRadius: 0,
             elevation: 0,
+            borderBottomWidth: 0,
           },
           headerTitle: '',
           headerLeft: () => <Text style={{ marginLeft: 20, fontSize: 20 }}>paters</Text>,

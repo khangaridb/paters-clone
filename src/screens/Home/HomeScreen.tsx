@@ -15,7 +15,14 @@ const HomeScreen = () => {
         tabBarOptions={{
           showIcon: true,
           showLabel: false,
-          style: { height: 80, justifyContent: 'center', overflow: 'visible', alignContent: 'center' },
+          style: {
+            height: 80,
+            justifyContent: 'center',
+            overflow: 'visible',
+            alignContent: 'center',
+            borderTopWidth: 0,
+            elevation: 0,
+          },
         }}
         initialRouteName="Users"
         initialLayout={{ width: Dimensions.get('window').width }}>
