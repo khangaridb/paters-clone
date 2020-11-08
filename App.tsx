@@ -3,16 +3,17 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import Navigations from './src/navigations';
 import { Provider } from 'react-redux';
-import store from './src/redux/store';
-
-declare const global: { HermesInternal: null | {} };
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Navigations />
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Navigations />
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };
