@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import Button from '../../common/Button';
 import commonStyles from '../../common/styles';
 import DumbTextInput from '../../common/TextInput';
@@ -9,15 +10,29 @@ interface IProps {
   navigation: any;
 }
 
+interface IFormValues {
+  username: string;
+  password: string;
+}
+
 const LoginScreen = (props: IProps) => {
-  const { handleSubmit, register, setValue, formState } = useForm({ mode: 'onChange' });
+  const { handleSubmit, register, setValue, formState } = useForm<IFormValues>({ mode: 'onChange' });
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     register({ name: 'username' }, { required: true });
     register({ name: 'password' }, { required: true });
   }, [register]);
 
-  const onSubmit = () => {
+  const onSubmit = (data: IFormValues) => {
+    dispatch({
+      type: 'USER_SIGN_IN',
+      payload: {
+        ...data,
+        userToken: 'tokenhere',
+      },
+    });
+
     props.navigation.navigate('Home');
   };
 

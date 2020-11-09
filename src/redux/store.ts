@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import rootReducer from './rootReducer';
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import rootReducer from './rootReducer';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
