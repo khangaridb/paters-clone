@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../common/types';
 
 type currentUser = {
   username: string;
@@ -9,11 +10,18 @@ type authState = {
   currentUser?: currentUser;
 };
 
-const initialState = {
-  currentUser: null,
-};
+const initialState: authState = {};
 
-export const login = createAsyncThunk('auth/login', async () => {
+export const login = createAsyncThunk('auth/login', async (params: { username: string; password: string }) => {
+  console.log(params);
+  // fetch api here
+  return { username: 'dummy username', token: 'dummy token' };
+});
+
+export const restoreToken = createAsyncThunk('auth/restoreToken', async (params: { token?: string }) => {
+  if (!params.token) {
+    return null;
+  }
   // fetch api here
   return { username: 'dummy username', token: 'dummy token' };
 });
@@ -22,25 +30,32 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loggedIn: (state, action) => ({
-      ...state,
-      currentUser: action.payload,
-    }),
-
     loggedOut: (state) => ({
       ...state,
-      currentUser: null,
+      currentUser: undefined,
     }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(login.fulfilled, (state, { payload }) => {
+      state.currentUser = payload;
+    });
 
-    restoredToken: (state, action) => ({
-      ...state,
-      currentUser: action.payload,
-    }),
+    builder.addCase(restoreToken.fulfilled, (state, { payload }) => {
+      state.currentUser = undefined;
+
+      if (payload) {
+        state.currentUser = payload;
+      }
+    });
+
+    builder.addCase(restoreToken.rejected, (state) => {
+      state.currentUser = undefined;
+    });
   },
 });
 
-export const { loggedIn, loggedOut, restoredToken } = authSlice.actions;
-
-export const getCurrentUser = (state: authState) => state.currentUser;
+export const { loggedOut } = authSlice.actions;
 
 export default authSlice.reducer;
+
+export const getCurrentUser = (state: RootState) => state.auth.currentUser;

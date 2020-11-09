@@ -1,10 +1,12 @@
+import { unwrapResult } from '@reduxjs/toolkit';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
 import Button from '../../common/Button';
 import commonStyles from '../../common/styles';
 import DumbTextInput from '../../common/TextInput';
+import { useAppDispatch } from '../../common/utils';
+import { login } from '../../redux/slices/authSlice';
 
 interface IProps {
   navigation: any;
@@ -17,21 +19,17 @@ interface IFormValues {
 
 const LoginScreen = (props: IProps) => {
   const { handleSubmit, register, setValue, formState } = useForm<IFormValues>({ mode: 'onChange' });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     register({ name: 'username' }, { required: true });
     register({ name: 'password' }, { required: true });
   }, [register]);
 
-  const onSubmit = (data: IFormValues) => {
-    dispatch({
-      type: 'USER_SIGN_IN',
-      payload: {
-        ...data,
-        userToken: 'tokenhere',
-      },
-    });
+  const onSubmit = async (data: IFormValues) => {
+    const result = await dispatch(login({ ...data }));
+
+    unwrapResult(result);
 
     props.navigation.navigate('Home');
   };

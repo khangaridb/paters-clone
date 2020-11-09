@@ -2,8 +2,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUser } from './redux/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from './common/utils';
+import { getCurrentUser, restoreToken } from './redux/slices/authSlice';
 import HomeScreen from './screens/Home/HomeScreen';
 import ForgotPasswordScreen from './screens/Welcome/ForgotPasswordScreen';
 import LoginScreen from './screens/Welcome/LoginScreen';
@@ -14,8 +15,7 @@ const Stack = createStackNavigator();
 
 const Navigations = () => {
   const currentUser = useSelector(getCurrentUser);
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const bootstrapAsync = async () => {
@@ -23,12 +23,7 @@ const Navigations = () => {
 
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
-      dispatch({
-        type: 'USER_RESTORE_TOKEN',
-        payload: {
-          userToken: currentUser ? currentUser.token : null,
-        },
-      });
+      dispatch(restoreToken({ token: currentUser?.token }));
     };
 
     bootstrapAsync();
@@ -44,7 +39,7 @@ const Navigations = () => {
     return (
       <>
         <Stack.Screen
-          name="Welcome"
+          name="Home"
           component={HomeScreen}
           options={() => ({
             headerStyle: {
