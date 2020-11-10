@@ -5,7 +5,7 @@ import commonStyles from '../common/styles';
 interface IProps {
   fullWidth?: boolean;
   width?: number;
-  text: string;
+  text: string | React.ReactNode;
   transparent?: boolean;
   style?: any;
   onPress?: () => void;

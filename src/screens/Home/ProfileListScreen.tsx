@@ -1,15 +1,19 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-interface IItem {
+export interface IUser {
   id: number;
   name: string;
   status: string;
   age: number;
 }
 
-const datas: IItem[] = [
+interface IProps {
+  navigation: any;
+}
+
+const datas: IUser[] = [
   {
     id: 1,
     name: 'name 1',
@@ -62,26 +66,38 @@ const datas: IItem[] = [
 
 const width = Dimensions.get('screen').width / 2 - 20;
 
-const ProfileListScreen = () => {
-  const renderItem = ({ item }: { item: IItem }) => {
+const ProfileListScreen = (props: IProps) => {
+  const renderItem = ({ item }: { item: IUser }) => {
     return (
-      <View style={styles.item}>
-        <View style={{ justifyContent: 'center' }}>
+      <Pressable
+        style={styles.item}
+        onPress={() =>
+          props.navigation.navigate('UserDetail', {
+            user: item,
+          })
+        }>
+        <View style={{ justifyContent: 'center', height: '85%' }}>
           <Image
-            style={{ height: '85%', width: '100%' }}
+            style={{ height: '100%', width: '100%' }}
             resizeMode="cover"
             source={require('../../common/img/profile_female.png')}
           />
         </View>
 
-        <View style={{ height: '20%', flexDirection: 'row', padding: 5 }}>
+        <View
+          style={{
+            height: '15%',
+            flexDirection: 'row',
+            padding: 5,
+            alignItems: 'center',
+          }}>
           <Text style={{ textAlignVertical: 'center', marginLeft: 5 }}>
             <Icon name="circle" style={{ color: item.status === 'online' ? 'green' : 'grey' }} />
           </Text>
           <Text style={{ marginLeft: 5 }}>{item.age}</Text>
           <Text style={{ marginLeft: 5 }}>{item.name}</Text>
         </View>
-      </View>
+      </Pressable>
     );
   };
 

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from './common/utils';
 import { getCurrentUser, restoreToken } from './redux/slices/authSlice';
 import HomeScreen from './screens/Home/HomeScreen';
+import UserDetailScreen from './screens/Profile/UserDetailScreen';
 import ForgotPasswordScreen from './screens/Welcome/ForgotPasswordScreen';
 import LoginScreen from './screens/Welcome/LoginScreen';
 import RegisterScreen from './screens/Welcome/RegisterScreen';
@@ -35,6 +36,12 @@ const Navigations = () => {
     </Pressable>
   );
 
+  const moreIcon = () => (
+    <Pressable style={{ paddingRight: 20 }}>
+      <Icon color="black" name="ellipsis-h" style={{ fontSize: 30 }} />
+    </Pressable>
+  );
+
   const routesWithAuth = () => {
     return (
       <>
@@ -58,6 +65,24 @@ const Navigations = () => {
                 </View>
               );
             },
+          })}
+        />
+
+        <Stack.Screen
+          name="UserDetail"
+          component={UserDetailScreen}
+          options={({ navigation }) => ({
+            headerStyle: {
+              shadowRadius: 0,
+              elevation: 0,
+              borderBottomWidth: 0,
+            },
+            headerTitle: 'mayu',
+            headerTitleStyle: {
+              textAlign: 'center',
+            },
+            headerLeft: () => backToIcon(navigation),
+            headerRight: () => moreIcon(),
           })}
         />
       </>
