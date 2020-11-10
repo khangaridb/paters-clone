@@ -43,7 +43,7 @@ const RegisterScreen = (props: IProps) => {
   const [currentStep, setCurrentStep] = React.useState<number>(0);
 
   const nextButton = () => {
-    if (currentStep === labels.length) {
+    if (currentStep === labels.length - 1) {
       return (
         <Button fullWidth text="Finish" style={{ marginTop: 60 }} onPress={() => props.navigation.navigate('Login')} />
       );
